@@ -49,7 +49,7 @@ public class AddBinary_67 {
         42.08MB
         Beats 71.93%
      */
-    public static String addBinary1(String a, String b) {
+    public static String addBinary(String a, String b) {
         StringBuilder sum = new StringBuilder();
         char ten = '0';
 
