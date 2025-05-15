@@ -24,7 +24,7 @@ public class _159_LongestSubstringWithAtMostTwoDistinctCharacters {
         while (right < s.length()) {
             char rightChar = s.charAt(right);
             if (!chars.containsKey(rightChar)) {
-                while (chars.size() == 2) {
+                while (chars.size() > 1) {
                     if (chars.get(s.charAt(left)) == 1) {
                         chars.remove(s.charAt(left));
                     } else {
