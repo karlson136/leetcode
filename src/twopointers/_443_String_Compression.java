@@ -47,22 +47,22 @@ public class _443_String_Compression {
 
     public static void main(String[] args) {
         char[] chars = new char[]{'a', 'a', 'b', 'b', 'c', 'c', 'c'};
-        System.out.println(compress(chars) + ": " + Arrays.toString(chars));
+        System.out.println(compress2(chars) + ": " + Arrays.toString(chars));
 
         chars = new char[]{'a'};
-        System.out.println(compress(chars) + ": " + Arrays.toString(chars));
+        System.out.println(compress2(chars) + ": " + Arrays.toString(chars));
 
         chars = new char[]{'a', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b'};
-        System.out.println(compress(chars) + ": " + Arrays.toString(chars));
+        System.out.println(compress2(chars) + ": " + Arrays.toString(chars));
 
         chars = new char[]{'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b'};
-        System.out.println(compress(chars) + ": " + Arrays.toString(chars));
+        System.out.println(compress2(chars) + ": " + Arrays.toString(chars));
 
         chars = new char[]{'a', 'a', 'a', 'b', 'b', 'a', 'a'};
-        System.out.println(compress(chars) + ": " + Arrays.toString(chars));
+        System.out.println(compress2(chars) + ": " + Arrays.toString(chars));
 
         chars = new char[]{'a', 'b', 'c'};
-        System.out.println(compress(chars) + ": " + Arrays.toString(chars));
+        System.out.println(compress2(chars) + ": " + Arrays.toString(chars));
     }
 
     /*
@@ -107,6 +107,40 @@ public class _443_String_Compression {
                 chars[idx] = c;
                 idx++;
             }
+        }
+
+        return idx;
+    }
+
+    /*
+    Runtime
+    1ms
+    Beats 99.64%
+
+    Memory
+    45.41MB
+    Beats 21.38%
+     */
+    public static int compress2(char[] chars) {
+        int idx = 0;
+        int pointer = 0;
+
+        while (pointer < chars.length) {
+            int curentCharCnt = 1;
+            while (pointer + curentCharCnt < chars.length && chars[pointer] == chars[pointer + curentCharCnt]) {
+                curentCharCnt++;
+            }
+            chars[idx] = chars[pointer];
+            idx++;
+
+            if (curentCharCnt > 1) {
+                for (char c : String.valueOf(curentCharCnt).toCharArray()) {
+                    chars[idx] = c;
+                    idx++;
+                }
+            }
+
+            pointer += curentCharCnt;
         }
 
         return idx;
