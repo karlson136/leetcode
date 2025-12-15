@@ -61,10 +61,10 @@ import java.util.List;
 public class CompareVersionNumbers_165 {
 
     public static void main(String[] args) {
-        System.out.println(compareVersion("1.2", "1.10")); // -1
-        System.out.println(compareVersion("1.01", "1.001")); // 0
-        System.out.println(compareVersion("1.0", "1.0.0.0")); // 0
-        System.out.println(compareVersion("1.0.1", "1")); // 0
+        System.out.println(compareVersion2("1.2", "1.10")); // -1
+        System.out.println(compareVersion2("1.01", "1.001")); // 0
+        System.out.println(compareVersion2("1.0", "1.0.0.0")); // 0
+        System.out.println(compareVersion2("1.0.1", "1")); // 1
     }
 
     /*
@@ -97,7 +97,7 @@ public class CompareVersionNumbers_165 {
 
     public static List<Integer> getVersionsList(String version) {
         List<Integer> list = new ArrayList<>();
-        for(String str : version.split("\\.")) {
+        for (String str : version.split("\\.")) {
             list.add(Integer.parseInt(str));
         }
         return list;
@@ -111,4 +111,54 @@ public class CompareVersionNumbers_165 {
             }
         }
     }
+
+    /*
+        Runtime
+        0ms
+        Beats 100.00%
+
+        Memory
+        42.40MB
+        Beats 69.38%
+     */
+    public static int compareVersion2(String version1, String version2) {
+        int lengthV1 = version1.length();
+        int lengthV2 = version2.length();
+
+        int first = 0;
+        int second = 0;
+        while (first < lengthV1 || second < lengthV2) {
+
+            int num1 = 0;
+            while (first < lengthV1) {
+                char c = version1.charAt(first);
+                if (c == '.') {
+                    first++;
+                    break;
+                } else {
+                    num1 = num1 * 10 + (c - '0');
+                }
+                first++;
+            }
+
+            int num2 = 0;
+            while (second < lengthV2) {
+                char c = version2.charAt(second);
+                if (c == '.') {
+                    second++;
+                    break;
+                } else {
+                    num2 = num2 * 10 + (c - '0');
+                }
+                second++;
+            }
+
+            if (num1 != num2) {
+                return Integer.compare(num1, num2);
+            }
+        }
+
+        return 0;
+    }
+
 }
